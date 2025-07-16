@@ -5,31 +5,31 @@ import { ArrowRight, Star, ShoppingBag, Users, Award, Truck } from 'lucide-react
 import { mockProducts, mockCategories } from '../data/mockData';
 
 const Home: React.FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['common']);
 
   const featuredProducts = mockProducts.filter(product => product.featured);
 
   const stats = [
-    { icon: ShoppingBag, value: '200+', label: 'International Brands' },
-    { icon: Users, value: '2,000+', label: 'High-Quality Products' },
-    { icon: Award, value: '30,000+', label: 'Happy Customers' },
+    { icon: ShoppingBag, value: '200+', label: t('stats.internationalBrands') },
+    { icon: Users, value: '2,000+', label: t('stats.highQualityProducts') },
+    { icon: Award, value: '30,000+', label: t('stats.happyCustomers') },
   ];
 
   const features = [
     {
       icon: Truck,
-      title: 'Free Delivery',
-      description: 'Free delivery for all orders over $140',
+      title: t('features.freeDelivery'),
+      description: t('features.freeDeliveryDesc'),
     },
     {
       icon: Award,
-      title: 'Quality Guarantee',
-      description: 'We stand behind our products with premium quality',
+      title: t('features.qualityGuarantee'),
+      description: t('features.qualityGuaranteeDesc'),
     },
     {
       icon: ShoppingBag,
-      title: 'Easy Returns',
-      description: 'Easy returns within 30 days of purchase',
+      title: t('features.easyReturns'),
+      description: t('features.easyReturnsDesc'),
     },
   ];
 
@@ -42,21 +42,20 @@ const Home: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="text-center lg:text-left">
               <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-                FIND CLOTHES
+                {t('hero.findClothes')}
                 <br />
-                THAT MATCHES
+                {t('hero.thatMatches')}
                 <br />
-                YOUR STYLE
+                {t('hero.yourStyle')}
               </h1>
               <p className="text-lg text-gray-600 mb-8 max-w-lg">
-                Browse through our diverse range of meticulously crafted garments, 
-                designed to bring out your individuality and cater to your sense of style.
+                {t('hero.description')}
               </p>
               <Link
                 to="/shop"
                 className="inline-flex items-center bg-gray-900 text-white px-8 py-4 rounded-full hover:bg-gray-800 transition-colors group"
               >
-                Shop Now
+                {t('hero.cta')}
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Link>
 
@@ -94,10 +93,10 @@ const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Browse by Category
+              {t('common.browse')} {t('common.categories')}
             </h2>
             <p className="text-lg text-gray-600">
-              Discover your perfect style from our curated collections
+              {t('common.discover')} your perfect style from our curated collections
             </p>
           </div>
 
@@ -116,7 +115,7 @@ const Home: React.FC = () => {
                 <div className="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-50 transition-opacity"></div>
                 <div className="absolute bottom-4 left-4 right-4 text-white">
                   <h3 className="text-xl font-semibold mb-1">{category.name}</h3>
-                  <p className="text-sm opacity-90">{category.productsCount} Products</p>
+                  <p className="text-sm opacity-90">{category.productsCount} {t('common.products')}</p>
                 </div>
               </Link>
             ))}
@@ -129,10 +128,10 @@ const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              New Arrivals
+              {t('common.newArrivals')}
             </h2>
             <p className="text-lg text-gray-600">
-              Discover the latest trends in fashion
+              {t('common.discover')} the latest trends in fashion
             </p>
           </div>
 

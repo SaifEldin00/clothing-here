@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { X, Upload, Plus, Minus } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { X, Plus, Minus } from 'lucide-react';
 import { Product } from '../../../types';
 
 interface ProductFormProps {
@@ -10,6 +11,8 @@ interface ProductFormProps {
 }
 
 const ProductForm: React.FC<ProductFormProps> = ({ product, isOpen, onClose, onSave }) => {
+  const { t } = useTranslation(['admin', 'common']);
+  
   const [formData, setFormData] = useState({
     name: product?.name || '',
     nameAr: product?.nameAr || '',
@@ -76,79 +79,83 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, isOpen, onClose, onS
     <div className="fixed inset-0 z-50 overflow-y-auto">
       <div className="flex items-center justify-center min-h-screen px-4">
         <div className="fixed inset-0 bg-black opacity-50" onClick={onClose} />
-        <div className="relative bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-          <div className="flex items-center justify-between p-6 border-b">
-            <h2 className="text-xl font-semibold text-gray-900">
-              {product ? 'Edit Product' : 'Add New Product'}
+        <div className="relative bg-white rounded-xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="flex items-center justify-between p-6 border-b border-gray-200">
+            <h2 className="text-2xl font-bold text-gray-900">
+              {product ? t('products.editProduct') : t('products.addNewProduct')}
             </h2>
-            <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
+            <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition-colors">
               <X className="h-6 w-6" />
             </button>
           </div>
 
-          <form onSubmit={handleSubmit} className="p-6 space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <form onSubmit={handleSubmit} className="p-6 space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* Basic Information */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-medium text-gray-900">Basic Information</h3>
+              <div className="space-y-6">
+                <h3 className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2">
+                  {t('products.basicInformation')}
+                </h3>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Product Name (English)
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {t('products.productNameEn')}
                   </label>
                   <input
                     type="text"
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Product Name (Arabic)
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {t('products.productNameAr')}
                   </label>
                   <input
                     type="text"
                     value={formData.nameAr}
                     onChange={(e) => setFormData({ ...formData, nameAr: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Description (English)
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {t('products.descriptionEn')}
                   </label>
                   <textarea
-                    rows={3}
+                    rows={4}
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Description (Arabic)
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {t('products.descriptionAr')}
                   </label>
                   <textarea
-                    rows={3}
+                    rows={4}
                     value={formData.descriptionAr}
                     onChange={(e) => setFormData({ ...formData, descriptionAr: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
                 </div>
               </div>
 
               {/* Pricing and Category */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-medium text-gray-900">Pricing & Category</h3>
+              <div className="space-y-6">
+                <h3 className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2">
+                  {t('products.pricingCategory')}
+                </h3>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Price ($)
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {t('products.price')}
                   </label>
                   <input
                     type="number"
@@ -156,59 +163,59 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, isOpen, onClose, onS
                     required
                     value={formData.price}
                     onChange={(e) => setFormData({ ...formData, price: parseFloat(e.target.value) })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Original Price ($) - Optional
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {t('products.originalPrice')}
                   </label>
                   <input
                     type="number"
                     step="0.01"
                     value={formData.originalPrice}
                     onChange={(e) => setFormData({ ...formData, originalPrice: parseFloat(e.target.value) })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Category
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {t('products.category')}
                   </label>
                   <select
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
-                    <option value="men">Men</option>
-                    <option value="women">Women</option>
-                    <option value="children">Children</option>
+                    <option value="men">{t('common:nav.men')}</option>
+                    <option value="women">{t('common:nav.women')}</option>
+                    <option value="children">{t('common:nav.children')}</option>
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Brand
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {t('products.brand')}
                   </label>
                   <input
                     type="text"
                     value={formData.brand}
                     onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Tags (comma separated)
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {t('products.tags')}
                   </label>
                   <input
                     type="text"
                     value={formData.tags}
                     onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="casual, summer, cotton"
                   />
                 </div>
@@ -217,7 +224,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, isOpen, onClose, onS
 
             {/* Sizes */}
             <div>
-              <h3 className="text-lg font-medium text-gray-900 mb-4">Available Sizes</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('products.availableSizes')}</h3>
               <div className="flex flex-wrap gap-2 mb-4">
                 {formData.sizes.map((size) => (
                   <span
@@ -240,13 +247,13 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, isOpen, onClose, onS
                   type="text"
                   value={newSize}
                   onChange={(e) => setNewSize(e.target.value)}
-                  placeholder="Add size (e.g., XL)"
-                  className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder={t('products.addSize')}
+                  className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <button
                   type="button"
                   onClick={addSize}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   <Plus className="h-4 w-4" />
                 </button>
@@ -255,7 +262,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, isOpen, onClose, onS
 
             {/* Colors */}
             <div>
-              <h3 className="text-lg font-medium text-gray-900 mb-4">Available Colors</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('products.availableColors')}</h3>
               <div className="flex flex-wrap gap-2 mb-4">
                 {formData.colors.map((color) => (
                   <span
@@ -282,13 +289,13 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, isOpen, onClose, onS
                   type="text"
                   value={newColor}
                   onChange={(e) => setNewColor(e.target.value)}
-                  placeholder="Add color (e.g., navy)"
-                  className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder={t('products.addColor')}
+                  className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <button
                   type="button"
                   onClick={addColor}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   <Plus className="h-4 w-4" />
                 </button>
@@ -296,7 +303,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, isOpen, onClose, onS
             </div>
 
             {/* Status */}
-            <div className="flex gap-6">
+            <div className="flex gap-8">
               <label className="flex items-center">
                 <input
                   type="checkbox"
@@ -304,7 +311,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, isOpen, onClose, onS
                   onChange={(e) => setFormData({ ...formData, inStock: e.target.checked })}
                   className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                 />
-                <span className="ml-2 text-sm text-gray-700">In Stock</span>
+                <span className="ml-2 text-sm text-gray-700">{t('products.inStock')}</span>
               </label>
               
               <label className="flex items-center">
@@ -314,24 +321,24 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, isOpen, onClose, onS
                   onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
                   className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                 />
-                <span className="ml-2 text-sm text-gray-700">Featured Product</span>
+                <span className="ml-2 text-sm text-gray-700">{t('products.featuredProduct')}</span>
               </label>
             </div>
 
             {/* Submit Buttons */}
-            <div className="flex justify-end space-x-4 pt-6 border-t">
+            <div className="flex justify-end space-x-4 pt-6 border-t border-gray-200">
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2 text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300"
+                className="px-6 py-3 text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors"
               >
-                Cancel
+                {t('common:common.cancel')}
               </button>
               <button
                 type="submit"
-                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
               >
-                {product ? 'Update Product' : 'Create Product'}
+                {product ? t('products.updateProduct') : t('products.createProduct')}
               </button>
             </div>
           </form>
